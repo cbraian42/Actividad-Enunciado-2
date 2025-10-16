@@ -24,3 +24,5 @@ return (
 </BrowserRouter>
 );
 }
+
+export default App;
