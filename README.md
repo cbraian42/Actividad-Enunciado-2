@@ -25,6 +25,7 @@ Proyecto de registro de usuario en múltiples pasos utilizando React Router, con
 - `src/pages/PersonalInfo.jsx`: formulario de datos personales.
 - `src/pages/ContactInfo.jsx`: formulario de contacto.
 - `src/pages/Confirmation.jsx`: revisión y confirmación del registro.
+- `src/pages/Usuarios.jsx`: listado de usuarios persistidos en `localStorage` con acciones.
 
 ## Cambios realizados (desde el comienzo)
 
@@ -46,6 +47,18 @@ Proyecto de registro de usuario en múltiples pasos utilizando React Router, con
 
 - Se corrigió la visualización del nombre completo, añadiendo un espacio entre `firstName` y `lastName`.
 
+5) `src/pages/Usuarios.jsx`
+- Nueva página que lista usuarios guardados en `localStorage.users` en una tabla.
+- Muestra CTA para registrar si la lista está vacía.
+- Añadido botón "Eliminar" por usuario que actualiza estado y `localStorage`.
+
+6) `src/App.jsx` (rutas y navbar)
+- Añadida ruta `/usuarios` y enlace "Usuarios" en el menú de navegación.
+
+7) `src/pages/Confirmation.jsx` (persistencia)
+- Al confirmar, se agrega el usuario a `localStorage.users` con un `id` basado en `Date.now()`.
+- Se limpia `registrationData` y se redirige automáticamente a `/usuarios`.
+
 ## Comparación Antes vs Después (comportamiento)
 
 ### App.jsx
@@ -56,6 +69,7 @@ Proyecto de registro de usuario en múltiples pasos utilizando React Router, con
 - Después:
   - La aplicación inicia sin errores; la importación de `App` funciona.
   - `/register` carga por defecto `PersonalInfo` gracias a la ruta índice.
+  - Existe la ruta `/usuarios` y un enlace visible en el navbar para acceder al listado.
 
 ### Home.jsx
 
@@ -77,11 +91,21 @@ Proyecto de registro de usuario en múltiples pasos utilizando React Router, con
   - El nombre y apellido se mostraban sin espacio, dificultando la lectura.
 - Después:
   - Se muestra el nombre completo correctamente con un espacio entre ambos.
+  - Se persiste el usuario confirmado en `localStorage.users` y se redirige a `/usuarios`.
+
+### Usuarios.jsx
+- Antes:
+  - No existía la página.
+- Después:
+  - Lista usuarios guardados en `localStorage.users` en una tabla.
+  - Permite eliminar usuarios con un botón por fila, actualizando el estado y `localStorage`.
 
 ## Notas de implementación
 
 - Persistencia: Se usa `localStorage` para mantener los datos entre pasos y recuperarlos.
+- Confirmación: Al confirmar, se genera un `id` simple (`Date.now()`) y se añade al array `users` en `localStorage`.
 - Navegación: React Router controla rutas anidadas bajo `/register` y un `Outlet` para el formulario activo.
+- Listado: `Usuarios.jsx` lee `localStorage.users` y permite eliminar registros; la UI queda sincronizada con el almacenamiento.
 - Estilos: Inline CSS simple para mantener el foco en la funcionalidad.
 
 ## Próximas mejoras sugeridas
@@ -89,3 +113,4 @@ Proyecto de registro de usuario en múltiples pasos utilizando React Router, con
 - Validaciones avanzadas (email, teléfono) y mensajes de error.
 - Integración con backend para persistir registros reales.
 - Estados deshabilitados/completados en el indicador de pasos.
+- Confirmación de borrado (diálogo) y botón "Eliminar todos" en `Usuarios`.
