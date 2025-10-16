@@ -13,12 +13,13 @@ return (
 <Link to="/register">Registrarse</Link>
 </nav>
 <Routes>
-<Route path="/" element={<Home />} />
-<Route path="/register" element={<Register />}>
-<Route path="personal" element={<PersonalInfo />} />
-<Route path="contact" element={<ContactInfo />} />
-<Route path="confirmation" element={<Confirmation />} />
-</Route>
+  <Route path="/" element={<Home />} />
+  <Route path="/register" element={<Register />}>
+    <Route index element={<PersonalInfo />} />
+    <Route path="personal" element={<PersonalInfo />} />
+    <Route path="contact" element={<ContactInfo />} />
+    <Route path="confirmation" element={<Confirmation />} />
+  </Route>
 </Routes>
 </div>
 </BrowserRouter>
