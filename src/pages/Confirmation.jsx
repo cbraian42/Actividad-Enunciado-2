@@ -6,9 +6,13 @@ const [registrationData] = React.useState(
 () => JSON.parse(localStorage.getItem('registrationData') || '{}')
 );
 const handleConfirm = () => {
-alert('¡Registro completado exitosamente!');
-localStorage.removeItem('registrationData'); // Limpiar datos
-navigate('/');
+  const data = JSON.parse(localStorage.getItem('registrationData') || '{}');
+  const users = JSON.parse(localStorage.getItem('users') || '[]');
+  const newUser = { ...data, id: Date.now() };
+  localStorage.setItem('users', JSON.stringify([...users, newUser]));
+  alert('¡Registro completado exitosamente!');
+  localStorage.removeItem('registrationData');
+  navigate('/usuarios');
 };
 return (
 <div>
